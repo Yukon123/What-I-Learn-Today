@@ -4,20 +4,25 @@
 
 ## Code Block
 
-eg:
-    \```js ( could be any type you want )
-     let word = "hello world"
-    \```
+**eg:**
 
-expect:
-    ```js
-     let word = "hello world"
+\```js ( could be any type you want like:html vue)
+        you code can write in this area
+\```
 
-    ```
+**expect:**
+
+```js
+  let word = "hello world"
+ ```
 
 ## UnOrder List
 
+**eg:**
+
 **"\+"** OR **"\-"** WITH **White Space**
+
+**expect:**
 The Most Important three thing in you life
 
 + Eat
