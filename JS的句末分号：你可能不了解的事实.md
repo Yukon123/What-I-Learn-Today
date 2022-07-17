@@ -4,7 +4,7 @@
 
 在讲述接下来的内容之前，话不多说，让我们先来做一道题练练手。
 
-请思考下列JS语句输出结果是什么？并复制粘贴进**浏览器控制台**中运行验证。
+请思考下列 JS 语句输出结果是什么？并复制粘贴进**浏览器控制台**中运行验证。
 
 ```js
 let foo = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
@@ -12,12 +12,12 @@ let bar = foo
 [1, 2, 1, 2, 1, 2].forEach(item => console.log(item))
 ```
 
-如果输出和你预期中的一样，那么恭喜你，你的JS基础非常扎实。
+如果输出和你预期中的一样，那么恭喜你，你的 JS 基础非常扎实。
 
-如果输出与你预期中的不一样，不用沮丧，大多数人的预期都和你一样。这个时候你可以试着把这段代码复制进你的JS文件中保存，然后再用Node环境去运行这个JS文件，输出可能又和你最开始的预期一样。造成这种输出的不同，并不是Node环境和浏览器运行环境的不同，而是可能当你在用**Vscode**保存JS代码时自动格式化工具帮你悄悄加上了分号。
+如果输出与你预期中的不一样，不用沮丧，大多数人的预期都和你一样。这个时候你可以试着把这段代码复制进你的 JS 文件中保存，然后再用 Node 环境去运行这个 JS 文件，输出可能又和你最开始的预期一样。造成这种输出的不同，并不是 Node 环境和浏览器运行环境的不同，而是可能当你在用 **Vscode** 保存 JS 代码时自动格式化工具帮你悄悄加上了分号。
 
 ```js
-//Let‘s say it together:Thank you Vscode!!!
+//Let‘s say it together:Thank you Auto Formatter!!!
 let foo = [[1, 2, 3], [4, 5, 6], [7, 8, 9]];
 let bar = foo;
 [1, 2, 1, 2, 1, 2].forEach(item => console.log(item));
@@ -31,7 +31,7 @@ let bar = foo;
 
 ## [自动分号补全](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Lexical_grammar#自动分号补全)（[Automatic Semicolon Insertion](https://262.ecma-international.org/11.0/#sec-automatic-semicolon-insertion)）
 
-当一行语句没有句末分号的时候，JS解析器会尽量把新的一行纳入当前行解释，只有符合**自动分号补全**规则才会在合适的位置自动补全分号。当不符合**自动分号补全**规则时，警惕句首以  **`[`**	**`(`**	**`+`**	**`-`**	**`*`**	**`` `** 这六种特殊字符开头，这时候很有可能会被当做上一行的一部分来解析。
+当一行语句没有句末分号的时候，JS 解析器会尽量把新的一行纳入当前行解释，只有符合**自动分号补全**规则才会在合适的位置自动补全分号。当不符合**自动分号补全**规则时，警惕句首以  **`[`**	**`(`**	**`+`**	**`-`**	**`*`**	**`` ` ``** 这六种特殊字符开头，这时候很有可能会被当做上一行的一部分来解析。
 
 > 1. 当新的一行并入当前行将构成非法语句不能正确解析时，将自动插入分号。
 > 1. 当新行以 **`}`** 开头时，即代码块的结束位置，将自动插入分号。
@@ -108,7 +108,7 @@ let bar = foo[1, 2, 1, 2, 1, 2].forEach(item => console.log(item))
 
 1. 句首以**`+`**	**`-`**	**`*`**开头时，该行可能会和上一行一起当做**运算符**计算进行解析，期间还可能会发生**隐式转换**，不过句首以**`+`**	**`-`**	**`*`**开头的场景非常罕见。
 
-1. 句首以**`` `**开头时，它跟**`(`**一样，会和上一行的变量组成函数调用，使用模板字符串调用参数的函数被称作是[标签函数](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Template_literals#带标签的模板字符串)([Tag Functions](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals#tagged_templates))
+1. 句首以**`` ` ``**开头时，它跟**`(`**一样，会和上一行的变量组成函数调用，使用模板字符串调用参数的函数被称作是[标签函数](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Template_literals#带标签的模板字符串)([Tag Functions](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals#tagged_templates))
 
    ```js
    //Simple Example
@@ -124,7 +124,7 @@ let bar = foo[1, 2, 1, 2, 1, 2].forEach(item => console.log(item))
 
    > 我有一个绝妙的解释方法，但是空白处太少，我写不下 。
    
-   值得庆幸的是，句首用**反引号** **`` `** 开头的同样很少见，我们可以先记住一个结论，函数也可以用模板字符串直接调用。关于**标签函数**，有机会以后可以展开讨论一下。
+   值得庆幸的是，句首用**反引号** **`` ` ``** 开头的同样很少见，我们可以先记住一个结论，函数也可以用模板字符串直接调用。关于**标签函数**，有机会以后可以展开讨论一下。
    
    
 
@@ -161,7 +161,7 @@ str.split('').forEach(v => hash[v] = hash[v] ? hash[v] + 1 : 1)
 let str = readline()[...str].forEach(v => hash[v] = hash[v] ? hash[v] + 1 : 1)			
 ```
 
-然后我们查阅下**MDN**关于[展开语法](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Operators/Spread_syntax)的定义：
+然后我们查阅下 **MDN** 关于[展开语法](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Operators/Spread_syntax)的定义：
 
 > **展开语法 (Spread syntax),** 可以在函数调用/数组构造时，将数组表达式或者 string 在语法层面展开；还可以在构造字面量对象时，将对象表达式按 key-value 的方式展开。(**译者注**: 字面量一般指 `[1, 2, 3]` 或者 `{name: "mdn"}` 这种简洁的构造方式)
 
@@ -175,7 +175,7 @@ let str = readline()[...str].forEach(v => hash[v] = hash[v] ? hash[v] + 1 : 1)
 
 1. ### 使用格式化工具
 
-   我们可以使用诸如**Prettier**、**Vetur**、**Beautify**这一类代码格式化插件对代码进行格式化，甚至其实可以使用**Vscode**默认自带的格式化程序对代码进行格式化。设置一下关于分号的配置，以及在代码保存时进行自动格式化，就可以很容易的避免出现上述的问题。
+   我们可以使用诸如 **Prettier**、**Vetur**、**Beautify **这一类代码格式化插件对代码进行格式化，甚至其实可以使用**Vscode **默认自带的格式化程序对代码进行格式化。设置一下关于分号的配置，以及在代码保存时进行自动格式化，就可以很容易的避免出现上述的问题。
 
    你可以在项目根目录创建` .prettierrc`文件，写入下列配置，便可在句末自动插入分号。
 
@@ -185,7 +185,7 @@ let str = readline()[...str].forEach(v => hash[v] = hash[v] ? hash[v] + 1 : 1)
    }
    ```
    
-   或者你也可以在**Vscode**的**Setting.json**文件中进行配置，好处是切换项目依然可以有效格式化文件。不过记住一个点项目里面的配置优先级高于编辑器的配置。
+   或者你也可以在 **Vscode** 的 **setting.json** 文件中进行配置，好处是切换项目依然可以有效格式化文件。不过记住一个点项目里面的配置优先级高于编辑器的配置。
    
 1. ### 使用句首分号
 
@@ -200,6 +200,6 @@ let str = readline()[...str].forEach(v => hash[v] = hash[v] ? hash[v] + 1 : 1)
    console.log(Object.keys(hash).map(key=>`${key}:${hash[key]}`).join(' '))
    ```
    
-   但其实你也可以使用代码格式化工具来帮你自动做这件事，比如在上面的配置项把 `semi` 的值改成 `false` ，这样就会仅添加必要的句首分号。
+   但其实你也可以使用代码格式化工具来帮你自动格式化，比如在上面的配置项把 `semi` 的值改成 `false` ，这样就会仅添加必要的句首分号。
 
 这两种方案都有效地规避了没有加句末分号时引发的异常行为，大家可以各取所需。
