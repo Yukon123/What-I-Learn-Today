@@ -4,35 +4,34 @@
 
 在讲述接下来的内容之前，话不多说，让我们先来做一道题练练手。
 
-请思考下列 JS 语句输出结果是什么？并复制粘贴进**浏览器控制台**中运行验证。
+请思考下列 **JS** 语句输出结果是什么？并复制粘贴进**浏览器控制台**中运行验证。
 
 ```js
-let foo = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
-let bar = foo
-[1, 2, 1, 2, 1, 2].forEach(item => console.log(item))
+ let foo = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
+ let bar = foo
+ [1, 2, 1, 2].forEach(item => console.log(item))
 ```
 
-如果输出和你预期中的一样，那么恭喜你，你的 JS 基础非常扎实。
+如果输出和你预期中的一样，那么恭喜你，你的 **JS** 基础非常扎实。
 
-如果输出与你预期中的不一样，不用沮丧，大多数人的预期都和你一样。这个时候你可以试着把这段代码复制进你的 JS 文件中保存，然后再用 Node 环境去运行这个 JS 文件，输出可能又和你最开始的预期一样。造成这种输出的不同，并不是 Node 环境和浏览器运行环境的不同，而是可能当你在用 **Vscode** 保存 JS 代码时自动格式化工具帮你悄悄加上了分号。
+如果输出与你预期中的不一样，不用沮丧，大多数人的预期都和你一样。这个时候你可以试着把这段代码复制进你的 **JS** 文件中保存，然后再用 **Node** 环境去运行这个 **JS** 文件，输出可能又和你最开始的预期一样。造成这种输出的不同，并不是 **Node** 环境和浏览器运行环境的不同，而是可能当你在用 **Vscode** 保存 **JS** 代码时自动格式化工具帮你悄悄加上了分号。
 
 ```js
-//Let‘s say it together:Thank you Auto Formatter!!!
-let foo = [[1, 2, 3], [4, 5, 6], [7, 8, 9]];
-let bar = foo;
-[1, 2, 1, 2, 1, 2].forEach(item => console.log(item));
+ //Let's say it together:Thank you Auto Formatter!!!
+ let foo = [[1, 2, 3], [4, 5, 6], [7, 8, 9]];
+ let bar = foo;
+ [1, 2, 1, 2].forEach(v => console.log(v));
 ```
 
 上面的题里其实包含了两个小知识，**自动分号补全**和**逗号操作符**。
 
 > **Tips**: 以下的两个知识点的标题和相关引用均有**超链接**跳转，可点击跳转原文
 
+## [自动分号补全](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Lexical_grammar#%E8%87%AA%E5%8A%A8%E5%88%86%E5%8F%B7%E8%A1%A5%E5%85%A8)
 
-
-## [自动分号补全](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Lexical_grammar#自动分号补全)（[Automatic Semicolon Insertion](https://262.ecma-international.org/11.0/#sec-automatic-semicolon-insertion)）
-
-当一行语句没有句末分号的时候，JS 解析器会尽量把新的一行纳入当前行解释，只有符合**自动分号补全**规则才会在合适的位置自动补全分号。当不符合**自动分号补全**规则时，警惕句首以  **`[`**	**`(`**	**`+`**	**`-`**	**`*`**	**`` ` ``** 这六种特殊字符开头，这时候很有可能会被当做上一行的一部分来解析。
-
+当一行语句没有句末分号的时候，**JS** 解析器会尽量把新的一行纳入当前行解释，只有符合**自动分号补全**规则才会在合适的位置自动补全分号。当不符合**自动分号补全**规则时，警惕句首以 **`[`** **`(`** **`+`** **`-`** **`*`** **`` ` ``** 这六种特殊字符开头，这时候很有可能会被当做上一行的一部分来解析。
+****
+>
 > 1. 当新的一行并入当前行将构成非法语句不能正确解析时，将自动插入分号。
 > 1. 当新行以 **`}`** 开头时，即代码块的结束位置，将自动插入分号。
 > 1. 当以 **`return`** 语句结束时，在行末自动插入分号。
@@ -40,51 +39,49 @@ let bar = foo;
 > 1. 当以 **`throw`** 语句结束时，在行末自动插入分号。
 > 1. 当以 **`continue`** 语句结束时，在行末自动插入分号。
 > 1. 当以 ES6 的 **`yield`** 语句结尾时，在行末自动插入分号。
-> 1. **`++`**、**`--`** 后缀表达式作为新行的开始，在行首自动插入分号。
+> 1. **`++`** 、**`--`** 后缀表达式作为新行的开始，在行首自动插入分号。
 > 1. 源代码文件末尾自动插入分号。
 >
-> ​                                                                                                                             ----以上规则引用自[JS分号的一些细节](https://www.cnblogs.com/vickylinj/p/15511064.html)
+> ----以上规则引用自[JS分号的一些细节](https://www.cnblogs.com/vickylinj/p/15511064.html)
 
-下面是一个JS解析器解析的简单例子:
+下面是一个**JS**解析器解析的简单例子:
 
 ```js
-let         //当JS读到这行时并不会停止，而是继续往下。
-foo = 'foo' //到这行的时候，组成let foo = 'foo' 一句完整语句，进行自动分号补全，然后继续往下解析。
-let bar = 'bar'
-/*等同于*/
-let foo = 'foo'
-let bar = 'bar'
+ let            // 当JS读到这行时并不会停止，而是继续往下。
+ foo = 'foo'    // 和上面组成let foo = 'foo' 一句完整语句，进行自动分号补全，
+ let bar = 'bar'// 在末尾同样插入分号
+ /*等同于*/
+ let foo = 'foo';
+ let bar = 'bar';
 ```
 
 这个时候回头看第一个例子会发现代码会被这么解释：
 
 ```js
-let foo = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
-let bar = foo
-[1, 2, 1, 2, 1, 2].forEach(item => console.log(item))
-/*等同于*/
-let foo = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
-let bar = foo[1, 2, 1, 2, 1, 2].forEach(item => console.log(item))
-//即:[[1,2,3],[4,5,6],[7,8,9]][1,2,1,2,1,2].forEach(item=>console.log(item))
+ let foo = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
+ let bar = foo
+ [1, 2, 1, 2, 1, 2].forEach(v => console.log(v))
+ /*等同于*/
+ let foo = [[1, 2, 3], [4, 5, 6], [7, 8, 9]];
+ let bar = foo[1, 2, 1, 2].forEach(v => console.log(v));
+ //即:[[1,2,3],[4,5,6],[7,8,9]][1,2,1,2].forEach(v => console.log(v));
 ```
 
 简单了解完**自动分号补全**机制可以跳转第二个知识点：**逗号操作符**。
 
+## [逗号操作符](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Operators/Comma_Operator)
 
-
-## [逗号操作符](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Operators/Comma_Operator) （[Comma Operator](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Comma_Operator)）
-
-> **逗号操作符** 对它的每个操作数求值（从左到右），并返回最后一个操作数的值。                            ---- MDN
+> **逗号操作符** 对它的每个操作数求值（从左到右），并返回最后一个操作数的值。 ---- MDN
 
 请在控制台中输入如下的例子帮助理解：
 
 ```js
-(1,2,3,4,5)  
-// output:5 返回逗号分隔的最后一个数5
-[2,4,6,8,10][0]  
-// output:2 这个很容易理解，数组的index为0的位置是2
-[2,4,6,8,10][0,1] 
-// output:4 前一对中括号包裹的是数组,后一对为访问数组属性，逗号操作符让0,1返回1,最终输出 4
+ (1,2,3,4,5);  
+ // 输出:5 返回逗号分隔的最后一个数5
+ [2,4,6,8,10][0];  
+ // 输出:2 这个很容易理解，数组的index为0的位置是2
+ [2,4,6,8,10][0,1]; 
+ // 输出:4 和上面不同的是，后一个中括号里有两个数，逗号操作符让0,1返回1,最终输出 4
 ```
 
 当你两个数组字面量连在一起的时候，后一个会被当做数组的属性访问来解释。
@@ -92,41 +89,37 @@ let bar = foo[1, 2, 1, 2, 1, 2].forEach(item => console.log(item))
 两个知识点结合起来之后，我们就可以明白第一个例子到底发生了什么。
 
 ```js
-// 第一个例子的最终解释版本
-// 即:[[1,2,3],[4,5,6],[7,8,9]][1,2,1,2,1,2].forEach(item=>console.log(item))
-// 即:[[1,2,3],[4,5,6],[7,8,9]][2].forEach(item=>console.log(item))
-// 即:[7,8,9].forEach(item=>console.log(item))
+ // 第一个例子的最终解释版本
+ // 即:[[1,2,3],[4,5,6],[7,8,9]][1,2,1,2].forEach(v => console.log(v))
+ // 即:[[1,2,3],[4,5,6],[7,8,9]][2].forEach(v => console.log(v))
+ // 即:[7,8,9].forEach(v => console.log(v))
 ```
-
-
 
 ## 发生场景
 
 上面所举的例子是可以运行的，不会在控制台里面报错并中断进程。当发生突破预期行为时，不大容易被识别出来。当没加分号的时候，我们在平常开发中有可能会遇到如下的场景：
 
-1. 句首以 **`[`** 或是 **`(`** 开头时，控制台会出现报错 **Cannot read properties of undefined (reading 'forEach')** 或者 **xx  is not a function**。前一个是因为句首的 **`[`** 会把上一个变量当做对象进行属性访问，紧跟着的数组方法就可能在该属性里面找不到了，后一个是因为句首的 **`(`** 会把上一个变量当做函数进行函数调用。
+1. 句首以 **`[`** 或是 **`(`** 开头时，控制台会出现报错 **Cannot read properties of undefined (reading 'forEach')** 或者 **xx is not a function**。前一个是因为句首的 **`[`** 会把上一个变量当做对象进行属性访问，紧跟着的数组方法就可能在该属性里面找不到了，后一个是因为句首的 **`(`** 会把上一个变量当做函数进行函数调用。
 
-1. 句首以 **`+`** **`-`** **`*`** 开头时，该行可能会和上一行一起当做 **运算符** 计算进行解析，期间还可能会发生 **隐式转换**，不过句首以 **`+`**	**`-`** **`*`** 开头的场景非常罕见。
+2. 句首以 **`+`** **`-`** **`*`** 开头时，该行可能会和上一行一起当做 **运算符** 计算进行解析，期间还可能会发生 **隐式转换**，不过句首以 **`+`** **`-`** **`*`** 开头的场景非常罕见。
 
-1. 句首以 **`` ` ``** 开头时，它跟 **`(`** 一样，会和上一行的变量组成函数调用，使用模板字符串调用参数的函数被称作是[标签函数](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Template_literals#带标签的模板字符串)([Tag Functions](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals#tagged_templates))
+3. 句首以 **`` ` ``** 开头时，它跟 **`(`** 一样，会和上一行的变量组成函数调用，使用模板字符串调用参数的函数被称作是[标签函数](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Template_literals#%E5%B8%A6%E6%A0%87%E7%AD%BE%E7%9A%84%E6%A8%A1%E6%9D%BF%E5%AD%97%E7%AC%A6%E4%B8%B2)([Tag Functions](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals#tagged_templates))
 
-   ```js
+    ```js
    //Simple Example
-   let foo = "hello!"
-   function consoleFun(x) {
-     console.log(x)
-   }
-   consoleFun(foo)     //output> hello world!
-   consoleFun`${foo}`	//output> ['', '']
-   ```
+     let foo = "hello!"
+     function consoleFun(x) {
+       console.log(x)
+     }
+     consoleFun(foo)     //输出: hello world!
+     consoleFun`${foo}`  //输出: ['', '']
+    ```
 
-   糟糕！有些奇怪的事情发生了。首先它可以以这种形式调用，其次输出的结果很奇怪。简略的解释的话：就是当以标签函数的形式调用时，函数第一个参数会接收到该模板字符串用 **"${ 变量名 }"** `split` 而成的数组，然后剩余的参数再依次接收 **"${ 变量名 }"** 所代表变量的值。当然这个解释不是清晰易懂，如同费马一般:
+    糟糕！有些奇怪的事情发生了。首先奇怪的是它可以以这种形式调用，其次输出的结果很奇怪。简略的解释的话：就是当以标签函数的形式调用时，函数第一个参数会接收到该模板字符串用 **"\${ 变量名 }"** `split` 而成的数组，然后剩余的参数再依次接收 **"\${ 变量名 }"** 所代表变量的值。当然这个解释不是清晰易懂，如同费马所言:
 
-   > 我有一个绝妙的解释方法，但是空白处太少，我写不下 。
-   
-   值得庆幸的是，句首用 **反引号** **`` ` ``** 开头的同样很少见，我们可以先记住一个结论，函数也可以用模板字符串直接调用。关于 **标签函数**，有机会以后可以展开讨论一下。
-   
-   
+    > 我有一个绝妙的解释方法，但是空白处太少，我写不下 。
+
+    值得庆幸的是，句首用 **反引号** **`` ` ``** 开头的同样很少见，我们可以先记住一个结论，函数也可以用模板字符串直接调用。关于 **标签函数**的解释，有机会以后可以展开讨论一下。
 
 ## 灵异事件？
 
@@ -135,13 +128,13 @@ let bar = foo[1, 2, 1, 2, 1, 2].forEach(item => console.log(item))
 例如在牛客网，它的题目需要你自己来处理输入输出。它提供了一个 **readline** 函数来让你读取输入，然后你可以使用 **console** 或者 **print** 来对结果进行输出。
 
 ```js
-// 问题:统计字符出现的个数，并按照规定格式输出。
-// 示例输入: 'abbcd' 。
-// 示例输出: 'a:1 b:2 c:1 d:1'。
-let hash = {}
-let str = readline()//即let str = ‘abbcd’
-[...str].forEach(v => hash[v] = hash[v] ? hash[v] + 1 : 1)
-console.log(Object.keys(hash).map(key => `${key}:${hash[key]}`).join(' '))
+ // 问题:统计字符出现的个数，并按照规定格式输出。
+ // 示例输入: 'abbcd' 。
+ // 示例输出: 'a:1 b:2 c:1 d:1'。
+ let hash = {}
+ let str = readline()//即let str = ‘abbcd’
+ [...str].forEach(v => hash[v] = hash[v] ? hash[v] + 1 : 1)
+ console.log(Object.keys(hash).map(key => `${key}:${hash[key]}`).join(' '))
 ```
 
 一般来说，当你在接收到一个字符串之后，你会把它转换成数组。这样你就可以来执行一些遍历操作。
@@ -151,14 +144,14 @@ console.log(Object.keys(hash).map(key => `${key}:${hash[key]}`).join(' '))
 这时候就会有点怀疑人生了，脑子冒出了一万种想法：难道字符串不可迭代？难道展开运算符写错了？在网上一通查询无果，换了个 **Api** 执行来实现相同功能，稀里糊涂就过去了。最后自我安慰：当排除一切不可能的，剩下的即使再不可能，那也是真相 。那就是一定是有灵异事件发生了！！！
 
 ```js
-//.split('')和[...str]在这里可实现相同的功能
-str.split('').forEach(v => hash[v] = hash[v] ? hash[v] + 1 : 1)
+ //.split('')和[...str]在这里可实现相同的功能
+ str.split('').forEach(v => hash[v] = hash[v] ? hash[v] + 1 : 1)
 ```
 
 现在回头再来看的话，我们就会发现，其实出问题的那行代码被解析成：
 
 ```js
-let str = readline()[...str].forEach(v => hash[v] = hash[v] ? hash[v] + 1 : 1)			
+ let str = readline()[...str].forEach(v => hash[v] = hash[v]? hash[v] + 1 : 1)      
 ```
 
 然后我们查阅下 **MDN** 关于[展开语法](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Operators/Spread_syntax)的定义：
@@ -167,39 +160,37 @@ let str = readline()[...str].forEach(v => hash[v] = hash[v] ? hash[v] + 1 : 1)
 
 因为作为属性访问的时候，中括号里面是不支持**展开语法**的。所以控制台才会报出语法错误，看来计算机里面的的确确是没有黑魔法的，一切看起来不可思议的东西，很有可能只是自己的知识的局限性。
 
-
-
 ## 规避措施
 
 正如代码缩进的大小是两个字符还是四个字符在网上引发持续的争论，加不加分号也在前端的圈子里也是如此。站在天平的两端的人们都互认对方是异端，我们今天不去讨论哪种方式是正确的，而是给大家介绍现成的两种解决方案。
 
 1. ### 使用格式化工具
 
-   我们可以使用诸如 **Prettier**、**Vetur**、**Beautify** 这一类代码格式化插件对代码进行格式化，甚至其实可以使用 **Vscode** 默认自带的格式化程序对代码进行格式化。设置一下关于分号的配置，以及在代码保存时进行自动格式化，就可以很容易的避免出现上述的问题。
+    我们可以使用诸如 **Prettier**、**Vetur**、**Beautify** 这一类代码格式化插件对代码进行格式化，甚至其实可以使用 **Vscode** 默认自带的格式化程序对代码进行格式化。设置一下关于分号的配置，以及在代码保存时进行自动格式化，就可以很容易的避免出现上述的问题。
 
-   你可以在项目根目录创建` .prettierrc`文件，写入下列配置，便可在句末自动插入分号。
+    你可以在项目根目录创建`.prettierrc`文件，写入下列配置，便可在句末自动插入分号。
 
-   ```js
-   {
-       "semi": true, 
-   }
-   ```
-   
-   或者你也可以在 **Vscode** 的 **setting.json** 文件中进行配置，好处是切换项目依然可以有效格式化文件。不过记住一个点项目里面的配置优先级高于编辑器的配置。
-   
-1. ### 使用句首分号
+    ```json
+     {
+         "semi": true, 
+     }
+    ```
 
-   另外一个教派的人觉得其实没必要加句末分号，我们只需要在句首加上防御性分号即可，会引发异常行为的字符其实不多，当句首出现上述的六个字符，只需在句首加上**防御性分号**即可。
+    或者你也可以在 **Vscode** 的 **setting.json** 文件中进行配置，好处是切换项目依然可以有效格式化文件。不过记住一个点项目里面的配置优先级高于编辑器的配置。
 
-   下面是我根据这个规则，在第三行句首加上分号，运行之后也获得正确的结果。
+2. ### 使用句首分号
 
-   ```js
-   let hash={}
-   let str =readline()
-   ;[...str].forEach(v=>hash[v]=hash[v]?hash[v]+1:1)
-   console.log(Object.keys(hash).map(key=>`${key}:${hash[key]}`).join(' '))
-   ```
-   
-   但其实你也可以使用上述工具来帮你自动格式化，比如在上面的配置项把 `semi` 的值改成 `false` ，这样就会仅添加必要的句首分号。
+    另外一部分人觉得其实没必要加句末分号，我们只需要在句首加上防御性分号即可，会引发异常行为的字符其实不多，当句首出现上述的六个字符，只需在句首加上**防御性分号**即可。
+
+    下面是我根据这个规则，在第三行句首加上分号，运行之后也获得正确的结果。
+
+    ```js
+     let hash={}
+     let str =readline()
+     ;[...str].forEach(v=>hash[v]=hash[v]?hash[v]+1:1)
+     console.log(Object.keys(hash).map(key=>`${key}:${hash[key]}`).join(' '))
+    ```
+
+    但其实你也可以使用上述工具来帮你自动格式化，比如在上面的配置项把 `semi` 的值改成 `false` ，这样就会仅添加必要的句首分号。
 
 这两种方案都有效地规避了没有加句末分号时引发的异常行为，大家可以各取所需。
